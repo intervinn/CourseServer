@@ -134,6 +134,7 @@
     <ClInclude Include="MimeTypes.h" />
     <ClInclude Include="Request.hpp" />
     <ClInclude Include="Server.hpp" />
+    <ClInclude Include="Static.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,6 +10,11 @@ public:
 	std::string method;
 	std::string path;
 	std::string raw;
+
+	std::string boundary;
+	std::string contentType;
+	std::string file;
+
 	SOCKET socket;
 public:
 	Request(SOCKET s, const int size) {
@@ -17,6 +22,18 @@ public:
 		this->raw = this->receive(size);
 		this->method = this->search_regex(this->raw, "(POST|GET)");
 		this->path = this->search_regex(this->raw, "(\/[a-z.]+)");
+
+		if (this->method == "POST") {
+			//this->boundary = this->search_regex(this->raw, "(boundary=).*(\n)");
+			//std::cout << this->raw << std::endl;
+			//std::cout << "boundary is" << this->boundary << std::endl;
+			std::cout << this->search_regex(this->raw, "((Content-Length: ).*(\n))");
+			//std::cout << this->raw << std::endl;
+		}
+	}
+
+	void write(std::string status, std::string text) {
+		this->write(status, "text/plain", text.size(), text);
 	}
 
 	void write(std::string status, std::string contentType, int contentLength, std::string body) {
@@ -42,12 +59,14 @@ private:
 	}
 
 	std::string search_regex(std::string input, std::string pattern) {
-		std::regex r(pattern);
+		std::regex r(pattern, std::regex::extended);
 		std::smatch match;
 
 		if (std::regex_search(input, match, r)) {
 			return match[0];
 		}
+
+		//std::cout << "found none lmao" << pattern << std::endl;
 		return "";
 	}
 };

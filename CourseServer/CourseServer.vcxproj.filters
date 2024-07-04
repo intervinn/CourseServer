@@ -32,5 +32,8 @@
     <ClInclude Include="MimeTypes.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="Static.hpp">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
